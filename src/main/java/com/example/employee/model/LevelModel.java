@@ -1,26 +1,26 @@
-package com.example.employee.controller;
+package com.example.employee.model;
 
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "department")
-public class DepartmentModel {
+@Table(name = "level")
+public class LevelModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
     @Column(name = "code")
     private String code;
-    @Column(name = "department_name")
-    private String department;
+    @Column(name = "level")
+    private String level;
 
-    public DepartmentModel() {
+    public LevelModel() {
     }
 
-    public DepartmentModel(Long id, String code, String department) {
+    public LevelModel(Long id, String code, String level) {
         this.id = id;
         this.code = code;
-        this.department = department;
+        this.level = level;
     }
 
     public Long getId() {
@@ -39,11 +39,11 @@ public class DepartmentModel {
         this.code = code;
     }
 
-    public String getDepartment() {
-        return department;
+    public String getLevel() {
+        return level;
     }
 
-    public void setDepartment(String department) {
-        this.department = department;
+    public void setLevel(String level) {
+        this.level = level;
     }
 }

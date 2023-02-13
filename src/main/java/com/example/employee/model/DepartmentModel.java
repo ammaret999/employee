@@ -1,26 +1,27 @@
-package com.example.employee.controller;
+package com.example.employee.model;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.GenericGenerator;
 
 @Entity
-@Table(name = "gender")
-public class GenderModel {
+@Table(name = "department")
+public class DepartmentModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
     @Column(name = "code")
     private String code;
-    @Column(name = "gender")
-    private String gender;
+    @Column(name = "department_name")
+    private String department;
 
-    public GenderModel() {
+    public DepartmentModel() {
     }
 
-    public GenderModel(Long id, String code, String gender) {
+    public DepartmentModel(Long id, String code, String department) {
         this.id = id;
         this.code = code;
-        this.gender = gender;
+        this.department = department;
     }
 
     public Long getId() {
@@ -39,11 +40,11 @@ public class GenderModel {
         this.code = code;
     }
 
-    public String getGender() {
-        return gender;
+    public String getDepartment() {
+        return department;
     }
 
-    public void setGender(String gender) {
-        this.gender = gender;
+    public void setDepartment(String department) {
+        this.department = department;
     }
 }

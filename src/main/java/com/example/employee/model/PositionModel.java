@@ -1,4 +1,4 @@
-package com.example.employee.controller;
+package com.example.employee.model;
 
 import jakarta.persistence.*;
 
@@ -14,14 +14,14 @@ public class PositionModel {
     @Column(name = "position_name")
     private String position;
     @Column(name = "salary_min")
-    private String salaryMin;
+    private int salaryMin;
     @Column(name = "salary_max")
-    private String salaryMax;
+    private int salaryMax;
 
     public PositionModel() {
     }
 
-    public PositionModel(Long id, String code, String position, String salaryMin, String salaryMax) {
+    public PositionModel(Long id, String code, String position, int salaryMin, int salaryMax) {
         this.id = id;
         this.code = code;
         this.position = position;
@@ -53,19 +53,19 @@ public class PositionModel {
         this.position = position;
     }
 
-    public String getSalaryMin() {
+    public int getSalaryMin() {
         return salaryMin;
     }
 
-    public void setSalaryMin(String salaryMin) {
+    public void setSalaryMin(int salaryMin) {
         this.salaryMin = salaryMin;
     }
 
-    public String getSalaryMax() {
+    public int getSalaryMax() {
         return salaryMax;
     }
 
-    public void setSalaryMax(String salaryMax) {
+    public void setSalaryMax(int salaryMax) {
         this.salaryMax = salaryMax;
     }
 }
