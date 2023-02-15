@@ -6,21 +6,18 @@ import com.example.employee.model.EmployeeModel;
 import com.example.employee.repository.EmployeeRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
-
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.UUID;
 
 @Service
 public class EmployeeService {
     @Autowired
     EmployeeRepository employeeRepository;
-
-//    public EmployeeService(EmployeeRepository employeeRepository){
-//        this.employeeRepository = employeeRepository;
-//    }
+    @Autowired
+    JdbcTemplate jdbcTemplate;
 
     public List<EmployeeModel> searchEmployee(String query) {
         return employeeRepository.searchEmployee(query);
@@ -28,7 +25,7 @@ public class EmployeeService {
 
     public EmployeeModel createEmployee(EmployeeDTO employeeDTO){
         EmployeeModel employeeModel = new EmployeeModel();
-        employeeModel.setCode(generate());
+        employeeModel.setCode(generateCode());
         employeeModel.setTitleName(employeeDTO.getTitleName());
         employeeModel.setFirstName(employeeDTO.getFirstName());
         employeeModel.setLastName(employeeDTO.getLastName());
@@ -45,8 +42,11 @@ public class EmployeeService {
         return employeeRepository.save(employeeModel);
     }
 
-    public String generate() {
-        return "E-" + UUID.randomUUID().toString().substring(0, 8);
+    public String generateCode() {
+        String sql = "SELECT nextval('employee_id_seq')";
+        int seq = jdbcTemplate.queryForObject(sql, Integer.class);
+        String code = "E-" + (seq + 1);
+        return code;
     }
 
     public EmployeeModel editEmployee(EmployeeDTOEdit employeeDTOEdit, Long id){
@@ -57,7 +57,7 @@ public class EmployeeService {
         employeeModel.setLastName(employeeDTOEdit.getLastName());
         employeeModel.setNickName(employeeDTOEdit.getNickName());
         employeeModel.setBirthday(employeeDTOEdit.getBirthday());
-        employeeModel.setImage("file");
+        employeeModel.setImage("");
         employeeModel.setGender(employeeDTOEdit.getGender());
         employeeModel.setSlackName(employeeDTOEdit.getSlackName());
         employeeModel.setPhoneNumber(employeeDTOEdit.getPhoneNumber());
@@ -65,7 +65,6 @@ public class EmployeeService {
         employeeModel.setStartDate(employeeDTOEdit.getStartDate());
         employeeModel.setEndDate(employeeDTOEdit.getEndDate());
         employeeModel.setStatus(checkEndDate(employeeModel.getEndDate()));
-        //employeeDTOEdit.isStatus()
         employeeModel.setDepartment(employeeDTOEdit.getDepartment());
         employeeModel.setPosition(employeeDTOEdit.getPosition());
         return employeeRepository.save(employeeModel);
@@ -78,26 +77,11 @@ public class EmployeeService {
             return false;
         }
     }
+
+
     public List<EmployeeModel> getEmployee(){
         return employeeRepository.findAll();
     }
 
     public void deleteEmployee(Long id){employeeRepository.deleteById(id);}
-
-
-
-//    @SneakyThrows
-//    public String addImageEmployee(MultipartFile file,Long id) {
-//        Path path = Path.of(file.getOriginalFilename());
-//        try {
-//            minioService.upload(path, file.getInputStream(), file.getContentType());
-//            EmployeeModel employeeModel = employeeRepository.findById(Long.valueOf(id)).get();
-//            employeeModel.setImage(file.getOriginalFilename());
-//        } catch (MinioException e) {
-//            throw new IllegalStateException("The file cannot be upload on the internal storage. Please retry later", e);
-//        } catch (IOException e) {
-//            throw new IllegalStateException("The file cannot be read", e);
-//        }
-//        return "success";
-//    }
 }
