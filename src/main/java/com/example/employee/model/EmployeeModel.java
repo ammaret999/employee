@@ -2,7 +2,6 @@ package com.example.employee.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDate;
 
@@ -207,4 +206,5 @@ public class EmployeeModel {
     public void setPosition(Long position) {
         this.position = position;
     }
+
 }

@@ -24,8 +24,8 @@ public class GenderController {
     @RequestMapping(value = "/admin/gender",method = RequestMethod.GET)
     public List<GenderModel> getGender(){return genderService.getGender();}
 
-    @RequestMapping(value="/admin/gender/{id}", method=RequestMethod.DELETE)
-    public void deleteGender(@PathVariable(value = "id") Long id) {
-        genderService.deleteGender(id);
+    @RequestMapping(value="/admin/gender/{query}", method=RequestMethod.DELETE)
+    public void deleteGender(@PathVariable(value = "query") String query) {
+        genderService.deleteGender(query);
     }
 }

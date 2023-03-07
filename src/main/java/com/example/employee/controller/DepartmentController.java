@@ -23,8 +23,8 @@ public class DepartmentController {
     @RequestMapping(value = "/admin/department",method = RequestMethod.GET)
     public List<DepartmentModel> getDepartment(){return departmentService.getDepartment();}
 
-    @RequestMapping(value="/admin/department/{id}", method=RequestMethod.DELETE)
-    public void deleteDepartment(@PathVariable(value = "id") Long id) {
-        departmentService.deleteDepartment(id);
+    @RequestMapping(value="/admin/department/{query}", method=RequestMethod.DELETE)
+    public void deleteDepartment(@PathVariable(value = "query") String query) {
+        departmentService.deleteDepartment(query);
     }
 }

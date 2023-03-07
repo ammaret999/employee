@@ -1,28 +1,15 @@
 package com.example.employee.dtoIn;
 
-import com.example.employee.model.EmployeeModel;
-import jakarta.persistence.Column;
-
 public class CertificateDTO {
-    private Long employeeId;
     private String topic;
     private String description;
 
     public CertificateDTO() {
     }
 
-    public CertificateDTO(Long employeeId, String topic, String description) {
-        this.employeeId = employeeId;
+    public CertificateDTO(String topic, String description) {
         this.topic = topic;
         this.description = description;
-    }
-
-    public Long getEmployeeId() {
-        return employeeId;
-    }
-
-    public void setEmployeeId(Long employeeId) {
-        this.employeeId = employeeId;
     }
 
     public String getTopic() {

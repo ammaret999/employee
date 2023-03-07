@@ -16,16 +16,19 @@ public class CertificateController {
     @Autowired
     CertificateService certificateService;
 
-    @RequestMapping(value = "/certificate",method = RequestMethod.POST)
-    public CertificateModel createCertificate(@RequestBody CertificateDTO certificateDTO){
-        return certificateService.createCertificate(certificateDTO);
+    @RequestMapping(value = "/certificate/{query}",method = RequestMethod.POST)
+    public CertificateModel createCertificate(@RequestBody CertificateDTO certificateDTO,@PathVariable String query){
+        return certificateService.createCertificate(certificateDTO,query);
     }
 
     @RequestMapping(value = "/certificate",method = RequestMethod.GET)
-    public List<CertificateModel> getCertificate(){return certificateService.getCertificate();}
+    public List<CertificateModel> getCertificateAll(){return certificateService.getCertificate();}
 
-    @RequestMapping(value="/certificate/{id}", method=RequestMethod.DELETE)
-    public void deleteCertificate(@PathVariable(value = "id") Long id) {
-        certificateService.deleteCertificate(id);
+    @RequestMapping(value = "/certificate/{query}",method = RequestMethod.GET)
+    public List<CertificateModel> getCertificateByEmployee(@PathVariable String query){return certificateService.getCertificateByEmployee(query);}
+
+    @RequestMapping(value="/certificate/{query}", method=RequestMethod.DELETE)
+    public void deleteCertificate(@PathVariable String query) {
+        certificateService.deleteCertificate(query);
     }
 }

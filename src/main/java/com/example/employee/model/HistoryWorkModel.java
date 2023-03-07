@@ -12,6 +12,8 @@ public class HistoryWorkModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
+    @Column(name = "code")
+    private String code;
     @ManyToOne
     @JoinColumn(name = "employee_id")
     private EmployeeModel employeeId;
@@ -29,9 +31,10 @@ public class HistoryWorkModel {
     public HistoryWorkModel() {
     }
 
-    public HistoryWorkModel(Long id, EmployeeModel employeeId, String companyName, LocalDate startWork, LocalDate endWork, String description) {
+    public HistoryWorkModel(Long id, EmployeeModel employeeId, String code, String companyName, LocalDate startWork, LocalDate endWork, String description) {
         this.id = id;
         this.employeeId = employeeId;
+        this.code = code;
         this.companyName = companyName;
         this.startWork = startWork;
         this.endWork = endWork;
@@ -44,6 +47,14 @@ public class HistoryWorkModel {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
     }
 
     public EmployeeModel getEmployeeId() {

@@ -2,6 +2,7 @@ package com.example.employee.service;
 
 import com.example.employee.dtoIn.GenderDTO;
 import com.example.employee.dtoIn.LevelDTO;
+import com.example.employee.model.DepartmentModel;
 import com.example.employee.model.GenderModel;
 import com.example.employee.model.LevelModel;
 import com.example.employee.repository.GenderRepository;
@@ -38,5 +39,8 @@ public class LevelService {
         return levelRepository.findAll();
     }
 
-    public void deleteLevel(Long id){levelRepository.deleteById(id);}
+    public void deleteLevel(String query){
+        LevelModel levelModel = levelRepository.findByCode(query);
+        levelRepository.deleteById(levelModel.getId());
+    }
 }

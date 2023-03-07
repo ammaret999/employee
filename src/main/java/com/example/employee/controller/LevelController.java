@@ -24,8 +24,8 @@ public class LevelController {
     @RequestMapping(value = "/admin/level",method = RequestMethod.GET)
     public List<LevelModel> getGender(){return levelService.getLevel();}
 
-    @RequestMapping(value="/admin/level/{id}", method=RequestMethod.DELETE)
-    public void deleteGender(@PathVariable(value = "id") Long id) {
-        levelService.deleteLevel(id);
+    @RequestMapping(value="/admin/level/{query}", method=RequestMethod.DELETE)
+    public void deleteGender(@PathVariable(value = "query") String query) {
+        levelService.deleteLevel(query);
     }
 }

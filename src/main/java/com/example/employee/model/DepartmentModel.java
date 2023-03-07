@@ -1,7 +1,5 @@
 package com.example.employee.model;
-
 import jakarta.persistence.*;
-import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 @Table(name = "department")

@@ -8,6 +8,7 @@ import com.example.employee.repository.EmployeeRepository;
 import io.minio.GetObjectArgs;
 import io.minio.MinioClient;
 import io.minio.PutObjectArgs;
+import io.minio.RemoveObjectArgs;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -60,15 +61,13 @@ public class EmployeeService {
         return code;
     }
 
-    public EmployeeModel editEmployee(EmployeeDTOEdit employeeDTOEdit, Long id){
-        EmployeeModel employeeModel = employeeRepository.findById(Long.valueOf(id)).get();
-        employeeModel.setCode(employeeDTOEdit.getCode());
+    public EmployeeModel editEmployee(EmployeeDTOEdit employeeDTOEdit, String query){
+        EmployeeModel employeeModel = employeeRepository.findByCode(query);
         employeeModel.setTitleName(employeeDTOEdit.getTitleName());
         employeeModel.setFirstName(employeeDTOEdit.getFirstName());
         employeeModel.setLastName(employeeDTOEdit.getLastName());
         employeeModel.setNickName(employeeDTOEdit.getNickName());
         employeeModel.setBirthday(employeeDTOEdit.getBirthday());
-        employeeModel.setImage("");
         employeeModel.setGender(employeeDTOEdit.getGender());
         employeeModel.setSlackName(employeeDTOEdit.getSlackName());
         employeeModel.setPhoneNumber(employeeDTOEdit.getPhoneNumber());
@@ -89,14 +88,51 @@ public class EmployeeService {
         }
     }
 
-
     public List<EmployeeModel> getEmployee(){
         return employeeRepository.findAll();
     }
 
-    public void deleteEmployee(Long id){employeeRepository.deleteById(id);}
+    public void deleteEmployee(String query){
+        EmployeeModel employeeModel = employeeRepository.findByCode(query);
+        employeeRepository.deleteById(employeeModel.getId());
+        deleteFile(employeeModel);
+    }
 
-    public void uploadFile(String bucketName, String objectName, InputStream stream, String contentType) {
+    public ResponseEntity<String> uploadFile(MultipartFile file,String query) {
+        try {
+            EmployeeModel employeeModel = employeeRepository.findByCode(query);
+            String bucketName = "image";
+            String objectName =employeeModel.getCode() + file.getOriginalFilename();
+            String contentType = file.getContentType();
+            InputStream stream = file.getInputStream();
+            saveFile(bucketName, objectName, stream, contentType);
+
+            if(employeeModel.getImage() != null){
+                deleteFile(employeeModel);
+            }
+
+            employeeModel.setImage(objectName);
+            employeeRepository.save(employeeModel);
+            return ResponseEntity.ok("File uploaded successfully");
+        } catch (Exception e) {
+            System.out.println(e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to upload file");
+        }
+    }
+
+    public ResponseEntity<byte[]> getImageEmployee(String query) {
+        try{
+            byte[] data = getFile(query);
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.IMAGE_JPEG);
+            return new ResponseEntity<>(data, headers, HttpStatus.OK);
+        } catch (Exception e){
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+    //function
+    public void saveFile(String bucketName, String objectName, InputStream stream, String contentType) {
         try {
             PutObjectArgs args = PutObjectArgs.builder()
                     .bucket(bucketName)
@@ -110,9 +146,9 @@ public class EmployeeService {
         }
     }
 
-    public byte[] getFile(Long id) {
-        EmployeeModel employeeModel = employeeRepository.findById(Long.valueOf(id)).get();
+    public byte[] getFile(String query) {
         try {
+            EmployeeModel employeeModel = employeeRepository.findByCode(query);
             GetObjectArgs args = GetObjectArgs.builder()
                     .bucket("image")
                     .object(employeeModel.getImage())
@@ -123,31 +159,17 @@ public class EmployeeService {
         }
     }
 
-    public ResponseEntity<String> uploadFile(MultipartFile file, Long id) {
+    public void deleteFile(EmployeeModel employeeModel){
         try {
-            String bucketName = "image";
-            String objectName = file.getOriginalFilename();
-            String contentType = file.getContentType();
-            InputStream stream = file.getInputStream();
-            uploadFile(bucketName, objectName, stream, contentType);
-            EmployeeModel employeeModel = employeeRepository.findById(Long.valueOf(id)).get();
-            employeeModel.setImage(objectName);
-            employeeRepository.save(employeeModel);
-            return ResponseEntity.ok("File uploaded successfully");
-        } catch (Exception e) {
-            System.out.println(e);
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to upload file");
+            minioClient.removeObject(
+                    RemoveObjectArgs.builder()
+                            .bucket("image")
+                            .object(employeeModel.getImage())
+                            .build()
+            );
         }
-    }
-
-    public ResponseEntity<byte[]> getImageEmployee(Long id) {
-        try{
-            byte[] data = getFile(id);
-            HttpHeaders headers = new HttpHeaders();
-            headers.setContentType(MediaType.IMAGE_JPEG);
-            return new ResponseEntity<>(data, headers, HttpStatus.OK);
-        } catch (Exception e){
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        catch (Exception e){
+            System.out.println("delete image failed");
         }
     }
 

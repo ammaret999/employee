@@ -1,9 +1,7 @@
 package com.example.employee.model;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 
-import java.time.LocalDate;
 @Entity
 @Table(name = "certificate")
 public class CertificateModel {
@@ -11,6 +9,8 @@ public class CertificateModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
+    @Column(name = "code")
+    private String code;
     @ManyToOne
     @JoinColumn(name = "employee_id")
     private EmployeeModel employeeId;
@@ -22,8 +22,9 @@ public class CertificateModel {
     public CertificateModel() {
     }
 
-    public CertificateModel(Long id, EmployeeModel employeeId, String topic, String description) {
+    public CertificateModel(Long id, String code, EmployeeModel employeeId, String topic, String description) {
         this.id = id;
+        this.code = code;
         this.employeeId = employeeId;
         this.topic = topic;
         this.description = description;
@@ -35,6 +36,14 @@ public class CertificateModel {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
     }
 
     public EmployeeModel getEmployeeId() {

@@ -5,7 +5,6 @@ import org.springframework.web.multipart.MultipartFile;
 import java.time.LocalDate;
 
 public class EmployeeDTOEdit {
-    private String code;
     private Long titleName;
     private String firstName;
     private String lastName;
@@ -24,8 +23,7 @@ public class EmployeeDTOEdit {
     public EmployeeDTOEdit() {
     }
 
-    public EmployeeDTOEdit(String code, Long titleName, String firstName, String lastName, String nickName, LocalDate birthday, Long gender, String slackName, Long phoneNumber, String email, LocalDate startDate, LocalDate endDate, boolean status, Long department, Long position) {
-        this.code = code;
+    public EmployeeDTOEdit(Long titleName, String firstName, String lastName, String nickName, LocalDate birthday, Long gender, String slackName, Long phoneNumber, String email, LocalDate startDate, LocalDate endDate, boolean status, Long department, Long position) {
         this.titleName = titleName;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -40,14 +38,6 @@ public class EmployeeDTOEdit {
         this.status = status;
         this.department = department;
         this.position = position;
-    }
-
-    public String getCode() {
-        return code;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
     }
 
     public Long getTitleName() {
@@ -161,4 +151,5 @@ public class EmployeeDTOEdit {
     public void setPosition(Long position) {
         this.position = position;
     }
+
 }

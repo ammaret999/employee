@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface PositionRepository extends JpaRepository<PositionModel,Long> {
+    PositionModel findByCode(String query);
 }

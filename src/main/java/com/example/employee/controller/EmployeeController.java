@@ -19,19 +19,9 @@ public class EmployeeController {
         return employeeService.createEmployee(employeeDTO);
     }
 
-    @RequestMapping(value = "/uplode",method = RequestMethod.POST)
-    public void upLodeFile(@RequestParam("file") MultipartFile file){
-        System.out.println(file.getSize());
-        System.out.println(file.getName());
-        System.out.println(file.getOriginalFilename());
-        System.out.println(file.getResource());
-        System.out.println(file.getContentType());
-
-    }
-
-    @RequestMapping(value = "/employee/{id}",method = RequestMethod.PUT)
-    public EmployeeModel editEmployee(@PathVariable(value = "id") Long id,@RequestBody EmployeeDTOEdit employeeDTOEdit){
-        return employeeService.editEmployee(employeeDTOEdit,id);
+    @RequestMapping(value = "/employee/{query}",method = RequestMethod.PUT)
+    public EmployeeModel editEmployee(@PathVariable String query,@RequestBody EmployeeDTOEdit employeeDTOEdit){
+        return employeeService.editEmployee(employeeDTOEdit,query);
     }
     @RequestMapping(value = "/employee",method = RequestMethod.GET)
     public List<EmployeeModel> getEmployee(){return employeeService.getEmployee();}
@@ -41,8 +31,8 @@ public class EmployeeController {
         return employeeService.searchEmployee(query);
     }
 
-    @RequestMapping(value="/employee/{id}", method=RequestMethod.DELETE)
-    public void deleteEmployee(@PathVariable(value = "id") Long id) {
-        employeeService.deleteEmployee(id);
+    @RequestMapping(value="/employee/{query1}", method=RequestMethod.DELETE)
+    public void deleteEmployee(@PathVariable String query1) {
+        employeeService.deleteEmployee(query1);
     }
 }

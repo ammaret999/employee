@@ -4,6 +4,7 @@ import com.example.employee.dtoIn.DepartmentDTO;
 import com.example.employee.dtoIn.PositionDTO;
 import com.example.employee.model.DepartmentModel;
 import com.example.employee.model.PositionModel;
+import com.example.employee.model.TitleNameModel;
 import com.example.employee.repository.DepartmentRepository;
 import com.example.employee.repository.PositionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,5 +39,8 @@ public class DepartmentService {
         return departmentRepository.findAll();
     }
 
-    public void deleteDepartment(Long id){departmentRepository.deleteById(id);}
+    public void deleteDepartment(String query){
+        DepartmentModel departmentModel = departmentRepository.findByCode(query);
+        departmentRepository.deleteById(departmentModel.getId());
+    }
 }

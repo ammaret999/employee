@@ -1,5 +1,4 @@
 package com.example.employee.model;
-
 import jakarta.persistence.*;
 
 @Entity
@@ -9,6 +8,8 @@ public class EducationHistoryModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
+    @Column(name = "code")
+    private String code;
     @ManyToOne
     @JoinColumn(name = "employee_id")
     private EmployeeModel employeeId;
@@ -23,12 +24,21 @@ public class EducationHistoryModel {
     public EducationHistoryModel() {
     }
 
-    public EducationHistoryModel(Long id, EmployeeModel employeeId, LevelModel levelId, String institution, String description) {
+    public EducationHistoryModel(Long id, String code, EmployeeModel employeeId, LevelModel levelId, String institution, String description) {
         this.id = id;
+        this.code = code;
         this.employeeId = employeeId;
         this.levelId = levelId;
         this.institution = institution;
         this.description = description;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
     }
 
     public Long getId() {

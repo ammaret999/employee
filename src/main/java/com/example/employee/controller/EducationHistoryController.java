@@ -17,16 +17,19 @@ public class EducationHistoryController {
     @Autowired
     EducationHistoryService educationHistoryService;
 
-    @RequestMapping(value = "/education",method = RequestMethod.POST)
-    public EducationHistoryModel createEducationHistory(@RequestBody EducationHistoryDTO educationHistoryDTO){
-        return educationHistoryService.createEducationHistory(educationHistoryDTO);
+    @RequestMapping(value = "/education/{query}",method = RequestMethod.POST)
+    public EducationHistoryModel createEducationHistory(@RequestBody EducationHistoryDTO educationHistoryDTO,@PathVariable String query){
+        return educationHistoryService.createEducationHistory(educationHistoryDTO,query);
     }
 
     @RequestMapping(value = "/education",method = RequestMethod.GET)
-    public List<EducationHistoryModel> getCertificate(){return educationHistoryService.getEducationHistory();}
+    public List<EducationHistoryModel> getCertificateAll(){return educationHistoryService.getEducationHistory();}
 
-    @RequestMapping(value="/education/{id}", method=RequestMethod.DELETE)
-    public void deleteCertificate(@PathVariable(value = "id") Long id) {
-        educationHistoryService.deleteEducationHistory(id);
+    @RequestMapping(value = "/education/{query}",method = RequestMethod.GET)
+    public List<EducationHistoryModel> getCertificateByEmployee(@PathVariable String query){return educationHistoryService.getEducationHistoryByEmployee(query);}
+
+    @RequestMapping(value="/education/{query}", method=RequestMethod.DELETE)
+    public void deleteCertificate(@PathVariable(value = "query") String query) {
+        educationHistoryService.deleteEducationHistory(query);
     }
 }

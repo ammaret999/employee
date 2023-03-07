@@ -3,6 +3,7 @@ package com.example.employee.service;
 import com.example.employee.dtoIn.GenderDTO;
 import com.example.employee.dtoIn.TitleNameDTO;
 import com.example.employee.model.GenderModel;
+import com.example.employee.model.PositionModel;
 import com.example.employee.model.TitleNameModel;
 import com.example.employee.repository.GenderRepository;
 import com.example.employee.repository.TitleNameRepository;
@@ -38,5 +39,8 @@ public class TitleNameService {
         return titleNameRepository.findAll();
     }
 
-    public void deleteTitleName(Long id){titleNameRepository.deleteById(id);}
+    public void deleteTitleName(String query){
+        TitleNameModel titleNameModel = titleNameRepository.findByCode(query);
+        titleNameRepository.deleteById(titleNameModel.getId());
+    }
 }

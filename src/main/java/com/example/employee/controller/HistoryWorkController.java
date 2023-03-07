@@ -15,16 +15,19 @@ public class HistoryWorkController {
     @Autowired
     HistoryWorkService historyWorkService;
 
-    @RequestMapping(value = "/work",method = RequestMethod.POST)
-    public HistoryWorkModel createHistoryWork(@RequestBody HistoryWorkDTO historyWorkDTO){
-        return historyWorkService.createHistoryWork(historyWorkDTO);
+    @RequestMapping(value = "/work/{query}",method = RequestMethod.POST)
+    public HistoryWorkModel createHistoryWork(@RequestBody HistoryWorkDTO historyWorkDTO,@PathVariable String query){
+        return historyWorkService.createHistoryWork(historyWorkDTO,query);
     }
 
     @RequestMapping(value = "/work",method = RequestMethod.GET)
-    public List<HistoryWorkModel> getHistoryWork(){return historyWorkService.getHistoryWork();}
+    public List<HistoryWorkModel> getHistoryWorkAll(){return historyWorkService.getHistoryWork();}
 
-    @RequestMapping(value="/work/{id}", method=RequestMethod.DELETE)
-    public void deleteHistoryWork(@PathVariable(value = "id") Long id) {
-        historyWorkService.deleteHistoryWork(id);
+    @RequestMapping(value = "/work/{query}",method = RequestMethod.GET)
+    public List<HistoryWorkModel> getHistoryWorkByEmployee(@PathVariable String query){return historyWorkService.getHistoryWorkByEmployee(query);}
+
+    @RequestMapping(value="/work/{query}", method=RequestMethod.DELETE)
+    public void deleteHistoryWork(@PathVariable String query) {
+        historyWorkService.deleteHistoryWork(query);
     }
 }

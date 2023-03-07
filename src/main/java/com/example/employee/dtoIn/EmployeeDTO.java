@@ -1,7 +1,5 @@
 package com.example.employee.dtoIn;
 
-import jakarta.persistence.Column;
-
 import java.time.LocalDate;
 
 public class EmployeeDTO {
@@ -131,4 +129,5 @@ public class EmployeeDTO {
     public void setPosition(Long position) {
         this.position = position;
     }
+
 }

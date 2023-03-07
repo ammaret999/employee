@@ -1,7 +1,5 @@
 package com.example.employee.dtoIn;
 
-import jakarta.persistence.Column;
-
 public class GenderDTO {
     private String gender;
 

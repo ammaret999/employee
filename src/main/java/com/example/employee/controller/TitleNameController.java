@@ -24,8 +24,8 @@ public class TitleNameController {
     @RequestMapping(value = "/admin/title",method = RequestMethod.GET)
     public List<TitleNameModel> getTitleName(){return titleNameService.getTitleName();}
 
-    @RequestMapping(value="/admin/title/{id}", method=RequestMethod.DELETE)
-    public void deleteTitleName(@PathVariable(value = "id") Long id) {
-        titleNameService.deleteTitleName(id);
+    @RequestMapping(value="/admin/title/{query}", method=RequestMethod.DELETE)
+    public void deleteTitleName(@PathVariable(value = "query") String query) {
+        titleNameService.deleteTitleName(query);
     }
 }

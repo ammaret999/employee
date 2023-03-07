@@ -1,7 +1,5 @@
 package com.example.employee.model;
-
 import jakarta.persistence.*;
-
 @Entity
 @Table(name = "title_name")
 public class TitleNameModel {

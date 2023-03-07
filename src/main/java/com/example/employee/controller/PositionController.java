@@ -22,8 +22,8 @@ public class PositionController {
     @RequestMapping(value = "/admin/position",method = RequestMethod.GET)
     public List<PositionModel> getPosition(){return positionService.getPosition();}
 
-    @RequestMapping(value="/admin/position/{id}", method=RequestMethod.DELETE)
-    public void deletePosition(@PathVariable(value = "id") Long id) {
-        positionService.deletePosition(id);
+    @RequestMapping(value="/admin/position/{query}", method=RequestMethod.DELETE)
+    public void deletePosition(@PathVariable(value = "query") String query) {
+        positionService.deletePosition(query);
     }
 }

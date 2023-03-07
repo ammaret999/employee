@@ -1,6 +1,7 @@
 package com.example.employee.service;
 
 import com.example.employee.dtoIn.PositionDTO;
+import com.example.employee.model.GenderModel;
 import com.example.employee.model.PositionModel;
 import com.example.employee.repository.PositionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,5 +38,8 @@ public class PositionService {
         return positionRepository.findAll();
     }
 
-    public void deletePosition(Long id){positionRepository.deleteById(id);}
+    public void deletePosition(String query){
+        PositionModel positionModel = positionRepository.findByCode(query);
+        positionRepository.deleteById(positionModel.getId());
+    }
 }

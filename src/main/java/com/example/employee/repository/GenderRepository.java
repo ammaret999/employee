@@ -5,4 +5,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface GenderRepository extends JpaRepository<GenderModel,Long> {
 
+    GenderModel findByCode(String query);
 }

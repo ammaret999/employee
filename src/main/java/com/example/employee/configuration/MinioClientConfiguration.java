@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 public class MinioClientConfiguration {
     @Autowired
-    private MinioClient minioClient;
+    MinioClient minioClient;
 
     public void createBucket(String bucketName) {
         try {

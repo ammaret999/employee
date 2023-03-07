@@ -1,6 +1,5 @@
 package com.example.employee.dtoIn;
 
-import jakarta.persistence.Column;
 
 public class DepartmentDTO {
     private String department;

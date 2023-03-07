@@ -3,7 +3,9 @@ package com.example.employee.service;
 import com.example.employee.dtoIn.DepartmentDTO;
 import com.example.employee.dtoIn.GenderDTO;
 import com.example.employee.model.DepartmentModel;
+import com.example.employee.model.EmployeeModel;
 import com.example.employee.model.GenderModel;
+import com.example.employee.repository.EmployeeRepository;
 import com.example.employee.repository.GenderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -36,5 +38,8 @@ public class GenderService {
         return genderRepository.findAll();
     }
 
-    public void deleteGender(Long id){genderRepository.deleteById(id);}
+    public void deleteGender(String query){
+        GenderModel genderModel = genderRepository.findByCode(query);
+        genderRepository.deleteById(genderModel.getId());
+    }
 }

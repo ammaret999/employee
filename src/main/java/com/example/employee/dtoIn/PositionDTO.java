@@ -1,7 +1,5 @@
 package com.example.employee.dtoIn;
 
-import jakarta.persistence.Column;
-
 public class PositionDTO {
     private String position;
     private int salaryMin;
