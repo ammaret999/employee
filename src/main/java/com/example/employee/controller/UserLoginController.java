@@ -10,7 +10,7 @@ import java.security.Principal;
 public class UserLoginController {
     @RequestMapping(value = "/",method = RequestMethod.GET)
     public String login(){
-        return "Success login";
+        return "http://localhost:3000/home";
     }
     @RequestMapping(value = "/user",method = RequestMethod.GET)
     public Principal user(Principal principal){
