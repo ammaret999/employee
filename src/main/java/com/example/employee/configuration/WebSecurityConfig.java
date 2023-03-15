@@ -16,11 +16,12 @@ public class WebSecurityConfig {
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         return http
                 .authorizeHttpRequests()
-//                .requestMatchers("/employee").permitAll()
-//                .requestMatchers(HttpMethod.POST, "/login","/").permitAll()
+                .requestMatchers("/**").permitAll()
+//                .requestMatchers(HttpMethod.POST, "/employee").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .oauth2Login()
+                .defaultSuccessUrl("/success")
                 .and()
                 .build();
     }
