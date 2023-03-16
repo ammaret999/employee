@@ -1,5 +1,5 @@
 package com.example.employee.model;
-import jakarta.persistence.*;
+import javax.persistence.*;
 @Entity
 @Table(name = "gender")
 public class GenderModel {

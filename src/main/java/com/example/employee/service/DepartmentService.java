@@ -1,18 +1,13 @@
 package com.example.employee.service;
 
 import com.example.employee.dtoIn.DepartmentDTO;
-import com.example.employee.dtoIn.PositionDTO;
 import com.example.employee.model.DepartmentModel;
-import com.example.employee.model.PositionModel;
-import com.example.employee.model.TitleNameModel;
 import com.example.employee.repository.DepartmentRepository;
-import com.example.employee.repository.PositionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.UUID;
 
 @Service
 public class DepartmentService {

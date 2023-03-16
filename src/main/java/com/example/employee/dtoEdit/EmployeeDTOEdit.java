@@ -1,7 +1,5 @@
 package com.example.employee.dtoEdit;
 
-import org.springframework.web.multipart.MultipartFile;
-
 import java.time.LocalDate;
 
 public class EmployeeDTOEdit {

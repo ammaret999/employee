@@ -1,10 +1,7 @@
 package com.example.employee.controller;
 
-import com.example.employee.dtoIn.GenderDTO;
 import com.example.employee.dtoIn.LevelDTO;
-import com.example.employee.model.GenderModel;
 import com.example.employee.model.LevelModel;
-import com.example.employee.service.GenderService;
 import com.example.employee.service.LevelService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

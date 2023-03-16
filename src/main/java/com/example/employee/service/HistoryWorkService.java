@@ -1,10 +1,8 @@
 package com.example.employee.service;
 
 import com.example.employee.dtoIn.HistoryWorkDTO;
-import com.example.employee.dtoIn.LevelDTO;
 import com.example.employee.model.EmployeeModel;
 import com.example.employee.model.HistoryWorkModel;
-import com.example.employee.model.LevelModel;
 import com.example.employee.repository.EmployeeRepository;
 import com.example.employee.repository.HistoryWorkRepository;
 import org.springframework.beans.factory.annotation.Autowired;

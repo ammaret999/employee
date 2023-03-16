@@ -1,11 +1,8 @@
 package com.example.employee.controller;
 
 import com.example.employee.dtoIn.CertificateDTO;
-import com.example.employee.dtoIn.HistoryWorkDTO;
 import com.example.employee.model.CertificateModel;
-import com.example.employee.model.HistoryWorkModel;
 import com.example.employee.service.CertificateService;
-import com.example.employee.service.HistoryWorkService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

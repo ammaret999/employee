@@ -1,7 +1,6 @@
 package com.example.employee.service;
 
 import com.example.employee.dtoIn.EducationHistoryDTO;
-import com.example.employee.model.CertificateModel;
 import com.example.employee.model.EducationHistoryModel;
 import com.example.employee.model.EmployeeModel;
 import com.example.employee.repository.EducationHistoryRepository;
