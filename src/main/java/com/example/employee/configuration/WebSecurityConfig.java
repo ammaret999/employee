@@ -12,30 +12,30 @@ import org.springframework.security.web.SecurityFilterChain;
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig {
-    @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http.csrf()
-                .disable()
-                .authorizeRequests()
-                .requestMatchers("/")
-                .anonymous()
-                .anyRequest()
-                .authenticated()
-                .and()
-                .httpBasic()
-                .and()
-                .sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-        return http.build();
-    }
+//    @Bean
+//    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+//        http.csrf()
+//                .disable()
+//                .authorizeRequests()
+//                .requestMatchers("/")
+//                .anonymous()
+//                .anyRequest()
+//                .authenticated()
+//                .and()
+//                .httpBasic()
+//                .and()
+//                .sessionManagement()
+//                .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+//        return http.build();
+//    }
 
 
 //    @Bean
 //    SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 //        return http
 //                .authorizeHttpRequests()
-//                .requestMatchers("/**").permitAll()
-////                .requestMatchers(HttpMethod.POST, "/employee").permitAll()
+//                .requestMatchers("/").permitAll()
+//                .requestMatchers(HttpMethod.POST, "/employee").permitAll()
 //                .anyRequest().authenticated()
 //                .and()
 //                .oauth2Login()
