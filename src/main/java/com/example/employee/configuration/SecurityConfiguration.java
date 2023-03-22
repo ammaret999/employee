@@ -13,15 +13,13 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(final HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 .antMatchers("/**").fullyAuthenticated()
+                .antMatchers("http://localhost:3000/login").fullyAuthenticated()
+                .anyRequest().authenticated()
                 .and()
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and()
-                .oauth2ResourceServer().jwt()
-                .and()
+                .oauth2Login()
+                .loginPage("http://localhost:3000/login")
+                .defaultSuccessUrl("http://localhost:3000")
                 .and()
                 .cors().and().csrf().disable();
     }
 }
-
-
-
