@@ -23,6 +23,12 @@ public class GenderService {
         return genderRepository.save(genderModel);
     }
 
+    public GenderModel editGender(GenderDTO genderDTO,String query){
+        GenderModel genderModel = genderRepository.findByCode(query);
+        genderModel.setGender(genderDTO.getGender());
+        return genderRepository.save(genderModel);
+    }
+
     public String generateCode() {
         String sql = "SELECT nextval('gender_id_seq')";
         int seq = jdbcTemplate.queryForObject(sql, Integer.class);
@@ -31,6 +37,11 @@ public class GenderService {
     }
     public List<GenderModel> getGender(){
         return genderRepository.findAll();
+    }
+
+    public GenderModel getGenderById(String query){
+        GenderModel genderModel = genderRepository.findByCode(query);
+        return genderModel;
     }
 
     public void deleteGender(String query){

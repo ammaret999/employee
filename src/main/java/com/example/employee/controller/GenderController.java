@@ -18,8 +18,16 @@ public class GenderController {
         return genderService.createGender(genderDTO);
     }
 
+    @RequestMapping(value = "/admin/gender/{query}",method = RequestMethod.PUT)
+    public GenderModel createGender(@RequestBody GenderDTO genderDTO,@PathVariable(value = "query") String query){
+        return genderService.editGender(genderDTO,query);
+    }
+
     @RequestMapping(value = "/admin/gender",method = RequestMethod.GET)
     public List<GenderModel> getGender(){return genderService.getGender();}
+
+    @RequestMapping(value = "/admin/gender/{query}",method = RequestMethod.GET)
+    public GenderModel getGenderById(@PathVariable(value = "query")String query){return genderService.getGenderById(query);}
 
     @RequestMapping(value="/admin/gender/{query}", method=RequestMethod.DELETE)
     public void deleteGender(@PathVariable(value = "query") String query) {

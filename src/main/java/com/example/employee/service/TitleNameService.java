@@ -23,6 +23,12 @@ public class TitleNameService {
         return titleNameRepository.save(titleNameModel);
     }
 
+    public TitleNameModel editTitleName(TitleNameDTO titleNameDTO,String query){
+        TitleNameModel titleNameModel = titleNameRepository.findByCode(query);
+        titleNameModel.setTitleName(titleNameDTO.getTitleName());
+        return titleNameRepository.save(titleNameModel);
+    }
+
     public String generateCode() {
         String sql = "SELECT nextval('title_name_id_seq')";
         int seq = jdbcTemplate.queryForObject(sql, Integer.class);
@@ -32,6 +38,11 @@ public class TitleNameService {
 
     public List<TitleNameModel> getTitleName(){
         return titleNameRepository.findAll();
+    }
+
+    public TitleNameModel getTitleNameByCode(String query){
+        TitleNameModel titleNameModel = titleNameRepository.findByCode(query);
+        return titleNameModel;
     }
 
     public void deleteTitleName(String query){

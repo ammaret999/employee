@@ -5,9 +5,11 @@ import com.example.employee.dtoIn.EmployeeDTO;
 import com.example.employee.model.EmployeeModel;
 import com.example.employee.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+
 @RestController
 public class EmployeeController {
     @Autowired
@@ -22,6 +24,12 @@ public class EmployeeController {
     public EmployeeModel editEmployee(@PathVariable String query,@RequestBody EmployeeDTOEdit employeeDTOEdit){
         return employeeService.editEmployee(employeeDTOEdit,query);
     }
+
+    @RequestMapping(value = "/employee/{code}",method = RequestMethod.GET)
+    public EmployeeModel getEmployeeByCode(@PathVariable String code){
+        return employeeService.getEmployeeByCode(code);
+    }
+
     @RequestMapping(value = "/employee",method = RequestMethod.GET)
     public List<EmployeeModel> getEmployee(){return employeeService.getEmployee();}
 
@@ -34,4 +42,5 @@ public class EmployeeController {
     public void deleteEmployee(@PathVariable String query1) {
         employeeService.deleteEmployee(query1);
     }
+
 }

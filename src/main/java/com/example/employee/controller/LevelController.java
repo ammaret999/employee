@@ -14,15 +14,25 @@ public class LevelController {
     LevelService levelService;
 
     @RequestMapping(value = "/admin/level",method = RequestMethod.POST)
-    public LevelModel createGender(@RequestBody LevelDTO levelDTO){
+    public LevelModel createLevel(@RequestBody LevelDTO levelDTO){
         return levelService.createLevel(levelDTO);
     }
 
+    @RequestMapping(value = "/admin/level/{query}",method = RequestMethod.PUT)
+    public LevelModel putLevel(@RequestBody LevelDTO levelDTO,@PathVariable(value = "query")String query){
+        return levelService.editLevel(levelDTO,query);
+    }
+
     @RequestMapping(value = "/admin/level",method = RequestMethod.GET)
-    public List<LevelModel> getGender(){return levelService.getLevel();}
+    public List<LevelModel> getLevel(){return levelService.getLevel();}
+
+    @RequestMapping(value = "/admin/level/{query}",method = RequestMethod.GET)
+    public LevelModel getLevelById(@PathVariable(value = "query")String query){
+        return levelService.getLevelByCode(query);
+    }
 
     @RequestMapping(value="/admin/level/{query}", method=RequestMethod.DELETE)
-    public void deleteGender(@PathVariable(value = "query") String query) {
+    public void deleteLevel(@PathVariable(value = "query") String query) {
         levelService.deleteLevel(query);
     }
 }

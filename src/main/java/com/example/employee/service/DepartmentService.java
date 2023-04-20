@@ -1,7 +1,9 @@
 package com.example.employee.service;
 
 import com.example.employee.dtoIn.DepartmentDTO;
+import com.example.employee.dtoIn.TitleNameDTO;
 import com.example.employee.model.DepartmentModel;
+import com.example.employee.model.TitleNameModel;
 import com.example.employee.repository.DepartmentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -23,6 +25,12 @@ public class DepartmentService {
         return departmentRepository.save(departmentModel);
     }
 
+    public DepartmentModel editDepartment(DepartmentDTO departmentDTO, String query){
+        DepartmentModel departmentModel = departmentRepository.findByCode(query);
+        departmentModel.setDepartment(departmentDTO.getDepartment());
+        return departmentRepository.save(departmentModel);
+    }
+
     public String generateCode() {
         String sql = "SELECT nextval('department_id_seq')";
         int seq = jdbcTemplate.queryForObject(sql, Integer.class);
@@ -32,6 +40,11 @@ public class DepartmentService {
 
     public List<DepartmentModel> getDepartment(){
         return departmentRepository.findAll();
+    }
+
+    public DepartmentModel getDepartmentByCode(String query){
+        DepartmentModel departmentModel = departmentRepository.findByCode(query);
+        return departmentModel;
     }
 
     public void deleteDepartment(String query){

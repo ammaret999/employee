@@ -1,7 +1,9 @@
 package com.example.employee.service;
 
 import com.example.employee.dtoIn.LevelDTO;
+import com.example.employee.dtoIn.TitleNameDTO;
 import com.example.employee.model.LevelModel;
+import com.example.employee.model.TitleNameModel;
 import com.example.employee.repository.LevelRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -23,6 +25,12 @@ public class LevelService {
         return levelRepository.save(levelModel);
     }
 
+    public LevelModel editLevel(LevelDTO levelDTO, String query){
+        LevelModel levelModel = levelRepository.findByCode(query);
+        levelModel.setLevel(levelDTO.getLevel());
+        return levelRepository.save(levelModel);
+    }
+
     public String generateCode() {
         String sql = "SELECT nextval('level_id_seq')";
         int seq = jdbcTemplate.queryForObject(sql, Integer.class);
@@ -32,6 +40,11 @@ public class LevelService {
 
     public List<LevelModel> getLevel(){
         return levelRepository.findAll();
+    }
+
+    public LevelModel getLevelByCode(String query){
+        LevelModel levelModel = levelRepository.findByCode(query);
+        return levelModel;
     }
 
     public void deleteLevel(String query){

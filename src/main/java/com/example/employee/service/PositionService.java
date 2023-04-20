@@ -25,6 +25,14 @@ public class PositionService {
         return positionRepository.save(positionModel);
     }
 
+    public PositionModel editPosition(PositionDTO positionDTO,String query){
+        PositionModel positionModel = positionRepository.findByCode(query);
+        positionModel.setPosition(positionDTO.getPosition());
+        positionModel.setSalaryMin(positionDTO.getSalaryMin());
+        positionModel.setSalaryMax(positionDTO.getSalaryMax());
+        return positionRepository.save(positionModel);
+    }
+
     public String generateCode() {
         String sql = "SELECT nextval('position_id_seq')";
         int seq = jdbcTemplate.queryForObject(sql, Integer.class);
@@ -34,6 +42,11 @@ public class PositionService {
 
     public List<PositionModel> getPosition(){
         return positionRepository.findAll();
+    }
+
+    public PositionModel getPositionById(String query){
+        PositionModel positionModel = positionRepository.findByCode(query);
+        return positionModel;
     }
 
     public void deletePosition(String query){

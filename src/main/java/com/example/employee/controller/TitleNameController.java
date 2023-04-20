@@ -18,8 +18,16 @@ public class TitleNameController {
         return titleNameService.createTitleName(titleNameDTO);
     }
 
+    @RequestMapping(value = "/admin/title/{query}",method = RequestMethod.PUT)
+    public TitleNameModel editTitleName(@RequestBody TitleNameDTO titleNameDTO,@PathVariable(value = "query") String query){
+        return titleNameService.editTitleName(titleNameDTO,query);
+    }
+
     @RequestMapping(value = "/admin/title",method = RequestMethod.GET)
     public List<TitleNameModel> getTitleName(){return titleNameService.getTitleName();}
+
+    @RequestMapping(value = "/admin/title/{query}",method = RequestMethod.GET)
+    public TitleNameModel getTitleNameByCode(@PathVariable(value = "query") String query){return titleNameService.getTitleNameByCode(query);}
 
     @RequestMapping(value="/admin/title/{query}", method=RequestMethod.DELETE)
     public void deleteTitleName(@PathVariable(value = "query") String query) {
