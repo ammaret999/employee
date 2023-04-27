@@ -117,7 +117,7 @@ public class EmployeeService {
         try {
             EmployeeModel employeeModel = employeeRepository.findByCode(query);
             String bucketName = "image";
-            String objectName =employeeModel.getCode() + file.getOriginalFilename();
+            String objectName = employeeModel.getCode() + file.getOriginalFilename();
             String contentType = file.getContentType();
             InputStream stream = file.getInputStream();
             saveFile(bucketName, objectName, stream, contentType);

@@ -149,5 +149,4 @@ public class EmployeeDTOEdit {
     public void setPosition(Long position) {
         this.position = position;
     }
-
 }

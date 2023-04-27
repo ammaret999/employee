@@ -12,8 +12,8 @@ public class ImageController {
     @Autowired
     EmployeeService employeeService;
 
-    @RequestMapping(value = "/upload",method = RequestMethod.POST)
-    public ResponseEntity<String> uploadFile(@RequestParam("file") MultipartFile file,@RequestParam String query){
+    @RequestMapping(value = "/upload/{query}",method = RequestMethod.POST)
+    public ResponseEntity<String> uploadFile(@RequestParam("file") MultipartFile file,@PathVariable String query){
         return employeeService.uploadFile(file,query);
     }
 
