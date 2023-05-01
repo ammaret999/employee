@@ -1,6 +1,7 @@
 package com.example.employee.controller;
 
 import com.example.employee.dtoIn.CertificateDTO;
+import com.example.employee.dtoIn.DepartmentDTO;
 import com.example.employee.model.CertificateModel;
 import com.example.employee.service.CertificateService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,8 +22,14 @@ public class CertificateController {
     @RequestMapping(value = "/certificate",method = RequestMethod.GET)
     public List<CertificateModel> getCertificateAll(){return certificateService.getCertificate();}
 
-    @RequestMapping(value = "/certificate/{query}",method = RequestMethod.GET)
+    @RequestMapping(value = "/certificate/employee/{query}",method = RequestMethod.GET)
     public List<CertificateModel> getCertificateByEmployee(@PathVariable String query){return certificateService.getCertificateByEmployee(query);}
+
+    @RequestMapping(value = "/certificate/{query}",method = RequestMethod.GET)
+    public CertificateModel getCertificateByCode(@PathVariable String query){return certificateService.getCertificateByCode(query);}
+
+    @RequestMapping(value = "/certificate/{query}",method = RequestMethod.PUT)
+    public CertificateModel editCertificate(@RequestBody CertificateDTO certificateDTO, @PathVariable String query){return certificateService.editCertificate(certificateDTO,query);}
 
     @RequestMapping(value="/certificate/{query}", method=RequestMethod.DELETE)
     public void deleteCertificate(@PathVariable String query) {

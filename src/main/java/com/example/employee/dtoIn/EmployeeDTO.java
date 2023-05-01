@@ -1,13 +1,14 @@
 package com.example.employee.dtoIn;
 
 import java.time.LocalDate;
+import java.util.Date;
 
 public class EmployeeDTO {
     private Long titleName;
     private String firstName;
     private String lastName;
     private String nickName;
-    private LocalDate birthday;
+    private Date birthday;
     private Long gender;
     private String slackName;
     private Long phoneNumber;
@@ -19,7 +20,7 @@ public class EmployeeDTO {
     public EmployeeDTO() {
     }
 
-    public EmployeeDTO(Long titleName, String firstName, String lastName, String nickName, LocalDate birthday, Long gender, String slackName, Long phoneNumber, String email, LocalDate startDate, Long department, Long position) {
+    public EmployeeDTO(Long titleName, String firstName, String lastName, String nickName, Date birthday, Long gender, String slackName, Long phoneNumber, String email, LocalDate startDate, Long department, Long position) {
         this.titleName = titleName;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -66,11 +67,11 @@ public class EmployeeDTO {
         this.nickName = nickName;
     }
 
-    public LocalDate getBirthday() {
+    public Date getBirthday() {
         return birthday;
     }
 
-    public void setBirthday(LocalDate birthday) {
+    public void setBirthday(Date birthday) {
         this.birthday = birthday;
     }
 

@@ -1,6 +1,8 @@
 package com.example.employee.service;
 
+import com.example.employee.dtoIn.CertificateDTO;
 import com.example.employee.dtoIn.EducationHistoryDTO;
+import com.example.employee.model.CertificateModel;
 import com.example.employee.model.EducationHistoryModel;
 import com.example.employee.model.EmployeeModel;
 import com.example.employee.repository.EducationHistoryRepository;
@@ -27,7 +29,7 @@ public class EducationHistoryService {
         EducationHistoryModel educationHistoryModel = new EducationHistoryModel();
         educationHistoryModel.setEmployeeId(employeeRepository.findByCode(query));
         educationHistoryModel.setCode(generateCode());
-        educationHistoryModel.setLevelId(levelRepository.findByCode(educationHistoryDTO.getLevelId()));
+        educationHistoryModel.setLevelId(levelRepository.findById(educationHistoryDTO.getLevelId()).orElse(null));
         educationHistoryModel.setInstitution(educationHistoryDTO.getInstitution());
         educationHistoryModel.setDescription(educationHistoryDTO.getDescription());
         return educationHistoryRepository.save(educationHistoryModel);
@@ -53,5 +55,18 @@ public class EducationHistoryService {
         EmployeeModel employeeModel = employeeRepository.findByCode(query);
         List<EducationHistoryModel> educationHistoryModelList = educationHistoryRepository.findAllByEmployeeId(employeeModel);
         return educationHistoryModelList;
+    }
+
+    public EducationHistoryModel getEducationHistoryByCode(String query) {
+        EducationHistoryModel educationHistoryModel = educationHistoryRepository.findByCode(query);
+        return educationHistoryModel;
+    }
+
+    public EducationHistoryModel editEducationHistory(EducationHistoryDTO educationHistoryDTO, String query) {
+        EducationHistoryModel educationHistoryModel = educationHistoryRepository.findByCode(query);
+        educationHistoryModel.setLevelId(levelRepository.findById(educationHistoryDTO.getLevelId()).orElse(null));
+        educationHistoryModel.setInstitution(educationHistoryDTO.getInstitution());
+        educationHistoryModel.setDescription(educationHistoryDTO.getDescription());
+        return educationHistoryRepository.save(educationHistoryModel);
     }
 }

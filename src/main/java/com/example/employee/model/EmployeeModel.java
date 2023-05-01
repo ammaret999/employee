@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import javax.persistence.*;
 
 import java.time.LocalDate;
+import java.util.Date;
 
 @Entity
 @Table(name = "employee")
@@ -25,7 +26,7 @@ public class EmployeeModel {
     private String nickName;
     @JsonFormat(pattern = "yyyy-MM-dd")
     @Column(name = "birthday")
-    private LocalDate birthday;
+    private Date birthday;
     @Column(name = "image")
     private String image;
     @ManyToOne
@@ -55,7 +56,7 @@ public class EmployeeModel {
     public EmployeeModel() {
     }
 
-    public EmployeeModel(Long id, String code, TitleNameModel titleName, String firstName, String lastName, String nickName, LocalDate birthday, String image, GenderModel gender, String slackName, Long phoneNumber, String email, LocalDate startDate, LocalDate endDate, boolean status, DepartmentModel department, PositionModel position) {
+    public EmployeeModel(Long id, String code, TitleNameModel titleName, String firstName, String lastName, String nickName, Date birthday, String image, GenderModel gender, String slackName, Long phoneNumber, String email, LocalDate startDate, LocalDate endDate, boolean status, DepartmentModel department, PositionModel position) {
         this.id = id;
         this.code = code;
         this.titleName = titleName;
@@ -123,11 +124,11 @@ public class EmployeeModel {
         this.nickName = nickName;
     }
 
-    public LocalDate getBirthday() {
+    public Date getBirthday() {
         return birthday;
     }
 
-    public void setBirthday(LocalDate birthday) {
+    public void setBirthday(Date birthday) {
         this.birthday = birthday;
     }
 
