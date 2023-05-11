@@ -184,7 +184,7 @@ public class EmployeeService {
             );
         }
         catch (Exception e){
-            System.out.println("delete image failed");
+            System.out.println(e);
         }
     }
 

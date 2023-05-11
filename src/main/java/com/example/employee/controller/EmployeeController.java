@@ -5,7 +5,6 @@ import com.example.employee.dtoIn.EmployeeDTO;
 import com.example.employee.model.EmployeeModel;
 import com.example.employee.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
