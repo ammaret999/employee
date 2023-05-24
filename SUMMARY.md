@@ -1,3 +1,5 @@
 # Table of contents
 
-* [Page 1](README.md)
+* [Login API](README.md)
+* [getIdToken test](getidtoken-test.md)
+* [getIdToken](getidtoken.md)
