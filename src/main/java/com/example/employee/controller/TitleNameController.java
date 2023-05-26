@@ -3,9 +3,15 @@ package com.example.employee.controller;
 import com.example.employee.dtoIn.TitleNameDTO;
 import com.example.employee.model.TitleNameModel;
 import com.example.employee.service.TitleNameService;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.awt.print.Book;
 import java.util.List;
 
 @RestController
