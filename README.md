@@ -1,5 +1,7 @@
 # test git book api method
 
+
+
 {% swagger method="get" path="/title" baseUrl="http://localhost:8000" summary="" %}
 {% swagger-description %}
 
@@ -29,3 +31,5 @@ Success
 
 {% endswagger-response %}
 {% endswagger %}
+
+<figure><img src=".gitbook/assets/cat01.jpg" alt=""><figcaption></figcaption></figure>
