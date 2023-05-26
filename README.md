@@ -18,7 +18,7 @@ input by user
 {% endswagger-parameter %}
 
 {% swagger-response status="200: OK" description="success" %}
-
+Success
 {% endswagger-response %}
 
 {% swagger-response status="400: Bad Request" description="bad request" %}
