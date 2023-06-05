@@ -1,18 +1,13 @@
 package com.example.employee.service;
 
-import com.example.employee.dtoIn.DepartmentDTO;
 import com.example.employee.dtoIn.GenderDTO;
-import com.example.employee.model.DepartmentModel;
-import com.example.employee.model.EmployeeModel;
 import com.example.employee.model.GenderModel;
-import com.example.employee.repository.EmployeeRepository;
 import com.example.employee.repository.GenderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.UUID;
 
 @Service
 public class GenderService {
@@ -28,6 +23,12 @@ public class GenderService {
         return genderRepository.save(genderModel);
     }
 
+    public GenderModel editGender(GenderDTO genderDTO,String query){
+        GenderModel genderModel = genderRepository.findByCode(query);
+        genderModel.setGender(genderDTO.getGender());
+        return genderRepository.save(genderModel);
+    }
+
     public String generateCode() {
         String sql = "SELECT nextval('gender_id_seq')";
         int seq = jdbcTemplate.queryForObject(sql, Integer.class);
@@ -36,6 +37,11 @@ public class GenderService {
     }
     public List<GenderModel> getGender(){
         return genderRepository.findAll();
+    }
+
+    public GenderModel getGenderById(String query){
+        GenderModel genderModel = genderRepository.findByCode(query);
+        return genderModel;
     }
 
     public void deleteGender(String query){

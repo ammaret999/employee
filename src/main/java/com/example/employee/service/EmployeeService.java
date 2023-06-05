@@ -2,8 +2,9 @@ package com.example.employee.service;
 
 import com.example.employee.dtoEdit.EmployeeDTOEdit;
 import com.example.employee.dtoIn.EmployeeDTO;
+import com.example.employee.dtoOut.Base64DTOOut;
 import com.example.employee.model.EmployeeModel;
-import com.example.employee.repository.EmployeeRepository;
+import com.example.employee.repository.*;
 
 import io.minio.GetObjectArgs;
 import io.minio.MinioClient;
@@ -21,11 +22,20 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.InputStream;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Base64;
 
 @Service
 public class EmployeeService {
     @Autowired
     EmployeeRepository employeeRepository;
+    @Autowired
+    TitleNameRepository titleNameRepository;
+    @Autowired
+    GenderRepository genderRepository;
+    @Autowired
+    DepartmentRepository departmentRepository;
+    @Autowired
+    PositionRepository positionRepository;
     @Autowired
     JdbcTemplate jdbcTemplate;
     @Autowired
@@ -38,19 +48,19 @@ public class EmployeeService {
     public EmployeeModel createEmployee(EmployeeDTO employeeDTO){
         EmployeeModel employeeModel = new EmployeeModel();
         employeeModel.setCode(generateCode());
-        employeeModel.setTitleName(employeeDTO.getTitleName());
+        employeeModel.setTitleName(titleNameRepository.findById(employeeDTO.getTitleName()).orElse(null));
         employeeModel.setFirstName(employeeDTO.getFirstName());
         employeeModel.setLastName(employeeDTO.getLastName());
         employeeModel.setNickName(employeeDTO.getNickName());
         employeeModel.setBirthday(employeeDTO.getBirthday());
-        employeeModel.setGender(employeeDTO.getGender());
+        employeeModel.setGender(genderRepository.findById(employeeDTO.getGender()).orElse(null));
         employeeModel.setSlackName(employeeDTO.getSlackName());
         employeeModel.setPhoneNumber(employeeDTO.getPhoneNumber());
         employeeModel.setEmail(employeeDTO.getEmail());
         employeeModel.setStartDate(employeeDTO.getStartDate());
         employeeModel.setStatus(true);
-        employeeModel.setDepartment(employeeDTO.getDepartment());
-        employeeModel.setPosition(employeeDTO.getPosition());
+        employeeModel.setDepartment(departmentRepository.findById(employeeDTO.getDepartment()).orElse(null));
+        employeeModel.setPosition(positionRepository.findById(employeeDTO.getPosition()).orElse(null));
         return employeeRepository.save(employeeModel);
     }
 
@@ -63,20 +73,20 @@ public class EmployeeService {
 
     public EmployeeModel editEmployee(EmployeeDTOEdit employeeDTOEdit, String query){
         EmployeeModel employeeModel = employeeRepository.findByCode(query);
-        employeeModel.setTitleName(employeeDTOEdit.getTitleName());
+        employeeModel.setTitleName(titleNameRepository.findById(employeeDTOEdit.getTitleName()).orElse(null));
         employeeModel.setFirstName(employeeDTOEdit.getFirstName());
         employeeModel.setLastName(employeeDTOEdit.getLastName());
         employeeModel.setNickName(employeeDTOEdit.getNickName());
         employeeModel.setBirthday(employeeDTOEdit.getBirthday());
-        employeeModel.setGender(employeeDTOEdit.getGender());
+        employeeModel.setGender(genderRepository.findById(employeeDTOEdit.getGender()).orElse(null));
         employeeModel.setSlackName(employeeDTOEdit.getSlackName());
         employeeModel.setPhoneNumber(employeeDTOEdit.getPhoneNumber());
         employeeModel.setEmail(employeeDTOEdit.getEmail());
         employeeModel.setStartDate(employeeDTOEdit.getStartDate());
         employeeModel.setEndDate(employeeDTOEdit.getEndDate());
         employeeModel.setStatus(checkEndDate(employeeModel.getEndDate()));
-        employeeModel.setDepartment(employeeDTOEdit.getDepartment());
-        employeeModel.setPosition(employeeDTOEdit.getPosition());
+        employeeModel.setDepartment(departmentRepository.findById(employeeDTOEdit.getDepartment()).orElse(null));
+        employeeModel.setPosition(positionRepository.findById(employeeDTOEdit.getPosition()).orElse(null));
         return employeeRepository.save(employeeModel);
     }
     public boolean checkEndDate(LocalDate endDate){
@@ -92,6 +102,11 @@ public class EmployeeService {
         return employeeRepository.findAll();
     }
 
+    public EmployeeModel getEmployeeByCode(String code) {
+        EmployeeModel employeeModel = employeeRepository.findByCode(code);
+        return employeeModel;
+    }
+
     public void deleteEmployee(String query){
         EmployeeModel employeeModel = employeeRepository.findByCode(query);
         employeeRepository.deleteById(employeeModel.getId());
@@ -102,7 +117,7 @@ public class EmployeeService {
         try {
             EmployeeModel employeeModel = employeeRepository.findByCode(query);
             String bucketName = "image";
-            String objectName =employeeModel.getCode() + file.getOriginalFilename();
+            String objectName = employeeModel.getCode() + file.getOriginalFilename();
             String contentType = file.getContentType();
             InputStream stream = file.getInputStream();
             saveFile(bucketName, objectName, stream, contentType);
@@ -113,22 +128,22 @@ public class EmployeeService {
 
             employeeModel.setImage(objectName);
             employeeRepository.save(employeeModel);
-            return ResponseEntity.ok("File uploaded successfully");
+            return ResponseEntity.ok("uploaded successfully");
         } catch (Exception e) {
             System.out.println(e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to upload file");
         }
     }
 
-    public ResponseEntity<byte[]> getImageEmployee(String query) {
-        try{
+    public Base64DTOOut getImageEmployee(String query) {
             byte[] data = getFile(query);
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.IMAGE_JPEG);
-            return new ResponseEntity<>(data, headers, HttpStatus.OK);
-        } catch (Exception e){
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-        }
+            String base64String = Base64.getEncoder().encodeToString(data);
+            Base64DTOOut base64DTOOut = new Base64DTOOut();
+            base64DTOOut.setBase64(base64String);
+            new ResponseEntity<>(data, headers, HttpStatus.OK);
+            return base64DTOOut;
     }
 
     //function
@@ -169,8 +184,10 @@ public class EmployeeService {
             );
         }
         catch (Exception e){
-            System.out.println("delete image failed");
+            System.out.println(e);
         }
     }
+
+
 
 }

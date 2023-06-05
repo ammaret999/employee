@@ -1,13 +1,11 @@
 package com.example.employee.service;
 
 import com.example.employee.dtoIn.CertificateDTO;
-import com.example.employee.dtoIn.HistoryWorkDTO;
 import com.example.employee.model.CertificateModel;
+import com.example.employee.model.DepartmentModel;
 import com.example.employee.model.EmployeeModel;
-import com.example.employee.model.HistoryWorkModel;
 import com.example.employee.repository.CertificateRepository;
 import com.example.employee.repository.EmployeeRepository;
-import com.example.employee.repository.HistoryWorkRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
@@ -26,7 +24,6 @@ public class CertificateService {
     public CertificateModel createCertificate(CertificateDTO certificateDTO,String query){
         CertificateModel certificateModel = new CertificateModel();
         EmployeeModel employeeModel = employeeRepository.findByCode(query);
-
         certificateModel.setEmployeeId(employeeModel);
         certificateModel.setCode(generateCode());
         certificateModel.setTopic(certificateDTO.getTopic());
@@ -54,6 +51,18 @@ public class CertificateService {
         EmployeeModel employeeModel = employeeRepository.findByCode(query);
         List<CertificateModel> certificateModelList = certificateRepository.findAllByEmployeeId(employeeModel);
         return certificateModelList;
+    }
+
+    public CertificateModel getCertificateByCode(String query) {
+        CertificateModel certificateModel = certificateRepository.findByCode(query);
+        return certificateModel;
+    }
+
+    public CertificateModel editCertificate(CertificateDTO certificateDTO, String query) {
+        CertificateModel certificateModel = certificateRepository.findByCode(query);
+        certificateModel.setTopic(certificateDTO.getTopic());
+        certificateModel.setDescription(certificateDTO.getDescription());
+        return certificateRepository.save(certificateModel);
     }
 
 }

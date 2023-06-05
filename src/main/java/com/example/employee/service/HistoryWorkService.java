@@ -1,10 +1,10 @@
 package com.example.employee.service;
 
+import com.example.employee.dtoIn.CertificateDTO;
 import com.example.employee.dtoIn.HistoryWorkDTO;
-import com.example.employee.dtoIn.LevelDTO;
+import com.example.employee.model.CertificateModel;
 import com.example.employee.model.EmployeeModel;
 import com.example.employee.model.HistoryWorkModel;
-import com.example.employee.model.LevelModel;
 import com.example.employee.repository.EmployeeRepository;
 import com.example.employee.repository.HistoryWorkRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,5 +54,19 @@ public class HistoryWorkService {
         EmployeeModel employeeModel = employeeRepository.findByCode(query);
         List<HistoryWorkModel> historyWorkModelList = historyWorkRepository.findAllByEmployeeId(employeeModel);
         return historyWorkModelList;
+    }
+
+    public HistoryWorkModel getHistoryWorkByCode(String query) {
+        HistoryWorkModel historyWorkModel = historyWorkRepository.findByCode(query);
+        return historyWorkModel;
+    }
+
+    public HistoryWorkModel editHistoryWork(HistoryWorkDTO historyWorkDTO, String query) {
+        HistoryWorkModel historyWorkModel = historyWorkRepository.findByCode(query);
+        historyWorkModel.setCompanyName(historyWorkDTO.getCompanyName());
+        historyWorkModel.setStartWork(historyWorkDTO.getStartWork());
+        historyWorkModel.setEndWork(historyWorkDTO.getEndWork());
+        historyWorkModel.setDescription(historyWorkDTO.getDescription());
+        return historyWorkRepository.save(historyWorkModel);
     }
 }

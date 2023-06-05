@@ -1,18 +1,15 @@
 package com.example.employee.service;
 
-import com.example.employee.dtoIn.GenderDTO;
 import com.example.employee.dtoIn.LevelDTO;
-import com.example.employee.model.DepartmentModel;
-import com.example.employee.model.GenderModel;
+import com.example.employee.dtoIn.TitleNameDTO;
 import com.example.employee.model.LevelModel;
-import com.example.employee.repository.GenderRepository;
+import com.example.employee.model.TitleNameModel;
 import com.example.employee.repository.LevelRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.UUID;
 
 @Service
 public class LevelService {
@@ -28,6 +25,12 @@ public class LevelService {
         return levelRepository.save(levelModel);
     }
 
+    public LevelModel editLevel(LevelDTO levelDTO, String query){
+        LevelModel levelModel = levelRepository.findByCode(query);
+        levelModel.setLevel(levelDTO.getLevel());
+        return levelRepository.save(levelModel);
+    }
+
     public String generateCode() {
         String sql = "SELECT nextval('level_id_seq')";
         int seq = jdbcTemplate.queryForObject(sql, Integer.class);
@@ -37,6 +40,11 @@ public class LevelService {
 
     public List<LevelModel> getLevel(){
         return levelRepository.findAll();
+    }
+
+    public LevelModel getLevelByCode(String query){
+        LevelModel levelModel = levelRepository.findByCode(query);
+        return levelModel;
     }
 
     public void deleteLevel(String query){

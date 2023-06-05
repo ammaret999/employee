@@ -1,7 +1,6 @@
 package com.example.employee.service;
 
 import com.example.employee.dtoIn.PositionDTO;
-import com.example.employee.model.GenderModel;
 import com.example.employee.model.PositionModel;
 import com.example.employee.repository.PositionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +8,6 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.UUID;
 
 @Service
 public class PositionService {
@@ -27,6 +25,14 @@ public class PositionService {
         return positionRepository.save(positionModel);
     }
 
+    public PositionModel editPosition(PositionDTO positionDTO,String query){
+        PositionModel positionModel = positionRepository.findByCode(query);
+        positionModel.setPosition(positionDTO.getPosition());
+        positionModel.setSalaryMin(positionDTO.getSalaryMin());
+        positionModel.setSalaryMax(positionDTO.getSalaryMax());
+        return positionRepository.save(positionModel);
+    }
+
     public String generateCode() {
         String sql = "SELECT nextval('position_id_seq')";
         int seq = jdbcTemplate.queryForObject(sql, Integer.class);
@@ -36,6 +42,11 @@ public class PositionService {
 
     public List<PositionModel> getPosition(){
         return positionRepository.findAll();
+    }
+
+    public PositionModel getPositionById(String query){
+        PositionModel positionModel = positionRepository.findByCode(query);
+        return positionModel;
     }
 
     public void deletePosition(String query){

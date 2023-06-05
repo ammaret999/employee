@@ -1,28 +1,22 @@
 package com.example.employee.controller;
 
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import com.example.employee.dtoIn.CodeLoginDTO;
+import com.example.employee.service.TitleNameService;
+import com.example.employee.service.UserLoginService;
+import okhttp3.Response;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
-import java.security.Principal;
+import java.io.IOException;
+
 
 @RestController
 public class UserLoginController {
-    @RequestMapping(value = "/",method = RequestMethod.GET)
-    public String login(){
-        return "/home";
+    @Autowired
+    UserLoginService userLoginService;
+    @RequestMapping(value = "/token",method = RequestMethod.POST)
+    public String createTitleName(@RequestBody CodeLoginDTO codeLoginDTO) throws IOException {
+        return userLoginService.getIdToken(codeLoginDTO);
     }
-    @RequestMapping(value = "/failed",method = RequestMethod.GET)
-    public String failed(){
-        return "/failed";
-    }
-    @RequestMapping(value = "/success",method = RequestMethod.GET)
-    public String success(){
-        return "/success";
-    }
-    @RequestMapping(value = "/user",method = RequestMethod.GET)
-    public Principal user(Principal principal){
-        System.out.println("username :" + principal.getName());
-        return principal;
-    }
+
 }

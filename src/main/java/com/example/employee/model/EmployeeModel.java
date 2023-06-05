@@ -1,9 +1,10 @@
 package com.example.employee.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import jakarta.persistence.*;
+import javax.persistence.*;
 
 import java.time.LocalDate;
+import java.util.Date;
 
 @Entity
 @Table(name = "employee")
@@ -14,8 +15,9 @@ public class EmployeeModel {
     private Long id;
     @Column(name = "code")
     private String code;
-    @Column(name = "title_name")
-    private Long titleName;
+    @ManyToOne
+    @JoinColumn(name = "title_name")
+    private TitleNameModel titleName;
     @Column(name = "first_name")
     private String firstName;
     @Column(name = "last_name")
@@ -24,11 +26,12 @@ public class EmployeeModel {
     private String nickName;
     @JsonFormat(pattern = "yyyy-MM-dd")
     @Column(name = "birthday")
-    private LocalDate birthday;
+    private Date birthday;
     @Column(name = "image")
     private String image;
-    @Column(name = "gender")
-    private Long gender;
+    @ManyToOne
+    @JoinColumn(name = "gender")
+    private GenderModel gender;
     @Column(name = "slack_name")
     private String slackName;
     @Column(name = "phone_number")
@@ -43,15 +46,17 @@ public class EmployeeModel {
     private LocalDate endDate;
     @Column(name = "status")
     private boolean status;
-    @Column(name = "department")
-    private Long department;
-    @Column(name = "position")
-    private Long position;
+    @ManyToOne
+    @JoinColumn(name = "department")
+    private DepartmentModel department;
+    @ManyToOne
+    @JoinColumn(name = "position")
+    private PositionModel position;
 
     public EmployeeModel() {
     }
 
-    public EmployeeModel(Long id, String code, Long titleName, String firstName, String lastName, String nickName, LocalDate birthday, String image, Long gender, String slackName, Long phoneNumber, String email, LocalDate startDate, LocalDate endDate, boolean status, Long department, Long position) {
+    public EmployeeModel(Long id, String code, TitleNameModel titleName, String firstName, String lastName, String nickName, Date birthday, String image, GenderModel gender, String slackName, Long phoneNumber, String email, LocalDate startDate, LocalDate endDate, boolean status, DepartmentModel department, PositionModel position) {
         this.id = id;
         this.code = code;
         this.titleName = titleName;
@@ -87,11 +92,11 @@ public class EmployeeModel {
         this.code = code;
     }
 
-    public Long getTitleName() {
+    public TitleNameModel getTitleName() {
         return titleName;
     }
 
-    public void setTitleName(Long titleName) {
+    public void setTitleName(TitleNameModel titleName) {
         this.titleName = titleName;
     }
 
@@ -119,11 +124,11 @@ public class EmployeeModel {
         this.nickName = nickName;
     }
 
-    public LocalDate getBirthday() {
+    public Date getBirthday() {
         return birthday;
     }
 
-    public void setBirthday(LocalDate birthday) {
+    public void setBirthday(Date birthday) {
         this.birthday = birthday;
     }
 
@@ -135,11 +140,11 @@ public class EmployeeModel {
         this.image = image;
     }
 
-    public Long getGender() {
+    public GenderModel getGender() {
         return gender;
     }
 
-    public void setGender(Long gender) {
+    public void setGender(GenderModel gender) {
         this.gender = gender;
     }
 
@@ -191,20 +196,19 @@ public class EmployeeModel {
         this.status = status;
     }
 
-    public Long getDepartment() {
+    public DepartmentModel getDepartment() {
         return department;
     }
 
-    public void setDepartment(Long department) {
+    public void setDepartment(DepartmentModel department) {
         this.department = department;
     }
 
-    public Long getPosition() {
+    public PositionModel getPosition() {
         return position;
     }
 
-    public void setPosition(Long position) {
+    public void setPosition(PositionModel position) {
         this.position = position;
     }
-
 }

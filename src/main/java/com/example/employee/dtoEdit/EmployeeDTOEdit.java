@@ -1,15 +1,19 @@
 package com.example.employee.dtoEdit;
 
-import org.springframework.web.multipart.MultipartFile;
+import com.example.employee.model.DepartmentModel;
+import com.example.employee.model.GenderModel;
+import com.example.employee.model.PositionModel;
+import com.example.employee.model.TitleNameModel;
 
 import java.time.LocalDate;
+import java.util.Date;
 
 public class EmployeeDTOEdit {
     private Long titleName;
     private String firstName;
     private String lastName;
     private String nickName;
-    private LocalDate birthday;
+    private Date birthday;
     private Long gender;
     private String slackName;
     private Long phoneNumber;
@@ -23,7 +27,7 @@ public class EmployeeDTOEdit {
     public EmployeeDTOEdit() {
     }
 
-    public EmployeeDTOEdit(Long titleName, String firstName, String lastName, String nickName, LocalDate birthday, Long gender, String slackName, Long phoneNumber, String email, LocalDate startDate, LocalDate endDate, boolean status, Long department, Long position) {
+    public EmployeeDTOEdit(Long titleName, String firstName, String lastName, String nickName, Date birthday, Long gender, String slackName, Long phoneNumber, String email, LocalDate startDate, LocalDate endDate, boolean status, Long department, Long position) {
         this.titleName = titleName;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -72,11 +76,11 @@ public class EmployeeDTOEdit {
         this.nickName = nickName;
     }
 
-    public LocalDate getBirthday() {
+    public Date getBirthday() {
         return birthday;
     }
 
-    public void setBirthday(LocalDate birthday) {
+    public void setBirthday(Date birthday) {
         this.birthday = birthday;
     }
 
@@ -151,5 +155,4 @@ public class EmployeeDTOEdit {
     public void setPosition(Long position) {
         this.position = position;
     }
-
 }

@@ -1,24 +1,24 @@
 package com.example.employee.dtoIn;
 
 public class EducationHistoryDTO {
-    private String levelId;
+    private Long levelId;
     private String institution;
     private String description;
 
     public EducationHistoryDTO() {
     }
 
-    public EducationHistoryDTO(String levelId, String institution, String description) {
+    public EducationHistoryDTO(Long levelId, String institution, String description) {
         this.levelId = levelId;
         this.institution = institution;
         this.description = description;
     }
 
-    public String getLevelId() {
+    public Long getLevelId() {
         return levelId;
     }
 
-    public void setLevelId(String levelId) {
+    public void setLevelId(Long levelId) {
         this.levelId = levelId;
     }
 
