@@ -19,7 +19,7 @@ public class GenderController {
     }
 
     @RequestMapping(value = "/admin/gender/{query}",method = RequestMethod.PUT)
-    public GenderModel createGender(@RequestBody GenderDTO genderDTO,@PathVariable(value = "query") String query){
+    public GenderModel editGender(@RequestBody GenderDTO genderDTO,@PathVariable(value = "query") String query){
         return genderService.editGender(genderDTO,query);
     }
 
