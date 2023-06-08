@@ -30,7 +30,7 @@ services:
       - MINIO_ROOT_PASSWORD=minioadmin
       - MINIO_ADDRESS=:9000
       - MINIO_CONSOLE_ADDRESS=:9001
-    command: minio server /data
+    command: "minio server /data:"
   create_bucket:
     image: minio/mc:latest
     depends_on:
