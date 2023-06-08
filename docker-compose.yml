@@ -1,0 +1,41 @@
+version: '3.5'
+services:
+  app:
+    container_name: employee-app
+    depends_on:
+      - PostgresSQL
+      - minio
+    build: ./
+    ports:
+      - "8080:8080"
+  PostgresSQL:
+    container_name: postgres-2345
+    image: postgres
+    restart: always
+    ports:
+      - "2345:5432"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=2345
+  minio:
+    container_name: Minio
+    image: minio/minio:latest
+    volumes:
+      - ./data:/data
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    environment:
+      - MINIO_ACCESS_KEY=minioadmin
+      - MINIO_SECRET_KEY=minioadmin
+      - MINIO_ADDRESS=:9000
+      - MINIO_CONSOLE_ADDRESS=:9001
+    command: minio server /data
+  create_bucket:
+    image: minio/mc:latest
+    depends_on:
+      - minio
+    entrypoint: [ "sh", "-c", "mc config host add minio http://minio:9000 minioadmin minioadmin && mc mb minio/image" ]
+
+
+
