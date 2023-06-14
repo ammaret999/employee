@@ -16,11 +16,7 @@ jobs:
         with:
           java-version: '11'
           distribution: 'adopt'
-
-      - name: set Maven
-        uses: stCarolas/setup-maven@4.4
-        with:
-          maven-version: 4.0.0
+          maven-version: '4.0.0'
 
       - name: Run tests
         run: mvn test -e
