@@ -18,5 +18,8 @@ jobs:
           distribution: 'adopt'
           maven-version: '4.0.0'
 
+      - name: Build with Maven
+        run: mvn package --quiet
+
       - name: Run tests
-        run: mvn test -e
+        run: mvn test --quiet
