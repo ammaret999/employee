@@ -3,7 +3,7 @@ name: Spring Boot Test
 on:
   push:
     branches:
-      - github-action
+      - git-action
   pull_request:
     branches:
       - main
@@ -20,9 +20,6 @@ jobs:
         uses: actions/setup-java@v2
         with:
           java-version: '11'
-
-      - name: Build Maven
-        run: mvn -B package
 
       - name: Run tests
         run: mvn -B test
