@@ -37,7 +37,7 @@ jobs:
       - name: Build with Maven
         run: |
           mvn -B package --no-transfer-progress \
-            -Dspring.datasource.url=jdbc:postgresql://host.docker.internal:2345/postgres \
+            -Dspring.datasource.url=jdbc:postgresql://localhost:2345/postgres \
             -Dspring.datasource.username=postgres \
             -Dspring.datasource.password=2345
 
