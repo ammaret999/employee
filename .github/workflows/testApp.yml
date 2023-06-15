@@ -15,9 +15,9 @@ jobs:
         ports:
           - "2345:5432"
         env:
-          - POSTGRES_USER: postgres
-          - POSTGRES_PASSWORD: 2345
-          - POSTGRES_DB: postgres
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: 2345
+          POSTGRES_DB: postgres
 
     steps:
       - name: Checkout code
