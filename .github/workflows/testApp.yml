@@ -20,7 +20,7 @@ jobs:
           POSTGRES_DB: postgres
 
       h2:
-        image: docker.pkg.github.com/h2database/h2database/h2:1.4.200
+        image: oscarfonts/h2:latest
         ports:
           - 9092:8082
 
