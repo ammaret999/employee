@@ -19,10 +19,10 @@ jobs:
           POSTGRES_PASSWORD: 2345
           POSTGRES_DB: postgres
 
-    h2:
-      image: docker.pkg.github.com/h2database/h2database/h2:1.4.200
-      ports:
-        - 9092:8082
+      h2:
+        image: docker.pkg.github.com/h2database/h2database/h2:1.4.200
+        ports:
+          - 9092:8082
 
     steps:
       - name: Checkout code
